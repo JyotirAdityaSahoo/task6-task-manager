@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A responsive task manager capstone project built with HTML, CSS, and JavaScript.">
+  <title>TaskFlow — Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="TaskFlow home"><span class="brand-mark">✓</span><span>TaskFlow</span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-item active" data-filter="all"><span>▦</span> All tasks <span class="nav-count" id="allCount">0</span></button>
+      <button class="nav-item" data-filter="active"><span>◷</span> In progress</button>
+      <button class="nav-item" data-filter="completed"><span>✓</span> Completed</button>
+      <div class="sidebar-bottom">
+        <div class="profile-avatar" aria-hidden="true">JS</div>
+        <div class="profile-copy"><strong id="profileName">Guest User</strong><small>Personal workspace</small></div>
+        <button id="signOutBtn" class="icon-button" type="button" aria-label="Sign out" title="Sign out">↪</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">MY WORKSPACE</p><h1>Good work starts here.</h1></div>
+        <div class="topbar-actions"><span class="today" id="todayLabel"></span><button id="openAddBtn" class="primary-button" type="button">＋ New task</button></div>
+      </header>
+
+      <section class="welcome-card" aria-label="Task summary">
+        <div><p class="eyebrow light">YOUR PRODUCTIVITY</p><h2>Make progress, one task at a time.</h2><p class="welcome-subtitle">Keep your plans clear and your next step simple.</p></div>
+        <div class="progress-wrap"><div class="progress-ring"><span id="completionPercent">0%</span></div><span class="progress-caption">tasks completed</span></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card"><span class="stat-icon purple">▦</span><div><p>Total tasks</p><strong id="totalStat">0</strong></div></article>
+        <article class="stat-card"><span class="stat-icon orange">◷</span><div><p>In progress</p><strong id="activeStat">0</strong></div></article>
+        <article class="stat-card"><span class="stat-icon green">✓</span><div><p>Completed</p><strong id="completedStat">0</strong></div></article>
+      </section>
+
+      <section class="tasks-section">
+        <div class="section-heading"><div><p class="eyebrow">YOUR LIST</p><h2 id="listHeading">All tasks</h2></div><div class="task-controls"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search tasks</span><input id="searchInput" type="search" placeholder="Search tasks…"></label><select id="priorityFilter" aria-label="Filter by priority"><option value="all">All priorities</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option></select></div></div>
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state" hidden><div class="empty-icon">✦</div><h3>No tasks found</h3><p>Add a task or change your search/filter to see your work here.</p><button class="primary-button" id="emptyAddBtn" type="button">＋ Create a task</button></div>
+      </section>
+      <footer>TaskFlow · Capstone Project · Built with HTML, CSS & JavaScript</footer>
+    </main>
+  </div>
+
+  <dialog id="taskDialog" class="task-dialog">
+    <form id="taskForm">
+      <div class="dialog-heading"><div><p class="eyebrow">TASK DETAILS</p><h2 id="dialogTitle">Create a task</h2></div><button type="button" class="icon-button" id="closeDialogBtn" aria-label="Close dialog">✕</button></div>
+      <label for="taskTitle">Task title <span>*</span></label><input id="taskTitle" name="title" maxlength="100" required placeholder="e.g. Finish project README">
+      <label for="taskDescription">Description</label><textarea id="taskDescription" name="description" rows="3" maxlength="500" placeholder="Add a few details (optional)"></textarea>
+      <div class="form-row"><div><label for="taskPriority">Priority</label><select id="taskPriority" name="priority"><option>Medium</option><option>High</option><option>Low</option></select></div><div><label for="taskDueDate">Due date</label><input id="taskDueDate" name="dueDate" type="date"></div></div>
+      <div class="dialog-actions"><button type="button" class="secondary-button" id="cancelDialogBtn">Cancel</button><button class="primary-button" type="submit">Save task</button></div>
+      <p class="form-note">Your tasks are saved in this browser using local storage.</p>
+    </form>
+  </dialog>
+
+  <dialog id="loginDialog" class="task-dialog login-dialog">
+    <form id="loginForm">
+      <div class="login-brand"><span class="brand-mark">✓</span><span>TaskFlow</span></div>
+      <p class="eyebrow">WELCOME</p><h2>Set up your workspace</h2><p class="login-copy">This is a demo sign-in for the capstone project. It stores a display name on this device; it does not provide secure server authentication.</p>
+      <label for="userName">Your name</label><input id="userName" maxlength="40" required placeholder="Enter your name">
+      <button class="primary-button full-width" type="submit">Continue to workspace</button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
